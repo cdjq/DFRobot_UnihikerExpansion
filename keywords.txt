@@ -1,0 +1,42 @@
+#######################################
+# Syntax Coloring DFRobot_K10_Expansion
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+DFRobot_K10_Expansion_I2C	KEYWORD1
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+getBattery	KEYWORD2
+getIRData	KEYWORD2
+sendIR	KEYWORD2
+setWS2812	KEYWORD2
+setMode	KEYWORD2
+setGpioState	KEYWORD2
+getGpioState	KEYWORD2
+getADCValue	KEYWORD2
+getDHTValue	KEYWORD2
+get18b20Value	KEYWORD2
+setMotorPeriod	KEYWORD2
+setMotorDuty	KEYWORD2
+setServoAngle	KEYWORD2
+getSr04Distance	KEYWORD2
+ePeriod_t	KEYWORD2
+eServoNumber_t	KEYWORD2
+eMotorNumber_t	KEYWORD2
+eMode_t	KEYWORD2
+eNumber_t	KEYWORD2
+eDhtType_t	KEYWORD2
+eIOState_t	KEYWORD2
+sDhtData_t	KEYWORD2
+
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+DEVICE_ADDR	LITERAL1
