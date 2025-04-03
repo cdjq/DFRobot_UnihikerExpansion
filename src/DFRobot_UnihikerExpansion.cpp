@@ -229,11 +229,18 @@ uint16_t DFRobot_UnihikerExpansion::getADCValue(eIONumber_t number)
   uint8_t result = 0;
   uint8_t _tempData[TEMP_LEN] = {0};
   uint8_t reg = I2C_ADC_C0_S+number*3;
+  uint16_t adcValue = 0;
   for (uint8_t i = 0; i < RETRY_COUNT; i++) {
     result = readReg(reg, _tempData, 3);
     if (result == 0) {
       if(_tempData[0] == DATA_ENABLE){
-        return ((uint16_t)_tempData[1] << 8) | _tempData[2];
+        adcValue =  ((uint16_t)_tempData[1] << 8) | _tempData[2];
+        if(adcValue > 3900){
+          adcValue = 4095;
+        }else if(adcValue < 40){
+          adcValue = 0;
+        }
+        return adcValue;
       }else if(_tempData[0] == MODE_ERROR){
         DBG("gpio mode error!")
         return 0xffff;
