@@ -1,12 +1,12 @@
 #######################################
-# Syntax Coloring DFRobot_K10_Expansion
+# Syntax Coloring DFRobot_UnihikerExpansion
 #######################################
 
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
 
-DFRobot_K10_Expansion_I2C	KEYWORD1
+DFRobot_UnihikerExpansion_I2C	KEYWORD1
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
@@ -28,10 +28,10 @@ getSr04Distance	KEYWORD2
 ePeriod_t	KEYWORD2
 eServoNumber_t	KEYWORD2
 eMotorNumber_t	KEYWORD2
-eMode_t	KEYWORD2
-eNumber_t	KEYWORD2
+eIOType_t	KEYWORD2
+eIONumber_t	KEYWORD2
 eDhtType_t	KEYWORD2
-eIOState_t	KEYWORD2
+eGpioState_t	KEYWORD2
 sDhtData_t	KEYWORD2
 
 

@@ -1,20 +1,20 @@
 /*!
- * @file DFRobot_K10_Expansion.cpp
- * @brief Define the basic structure of the DFRobot_K10_Expansion class, the implementation of the basic methods
- * @copyright	Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
+ * @file DFRobot_UnihikerExpansion.cpp
+ * @brief Define the basic structure of the DFRobot_UnihikerExpansion class, the implementation of the basic methods
+ * @copyright	Copyright (c) 2025 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @license The MIT License (MIT)
  * @author [ZhixinLiu](zhixin.liu@dfrobot.com)
- * @version V0.5.0
- * @date 2024-04-23
- * @url https://github.com/DFRobot/DFRobot_K10_Expansion
+ * @version V1.0.0
+ * @date 2025-04-03
+ * @url https://github.com/DFRobot/DFRobot_UnihikerExpansion
  */
-#include "DFRobot_K10_Expansion.h"
+#include "DFRobot_UnihikerExpansion.h"
 
-DFRobot_K10_Expansion::DFRobot_K10_Expansion(){}
-DFRobot_K10_Expansion::~DFRobot_K10_Expansion(){}
+DFRobot_UnihikerExpansion::DFRobot_UnihikerExpansion(){}
+DFRobot_UnihikerExpansion::~DFRobot_UnihikerExpansion(){}
 
 
-void DFRobot_K10_Expansion::setMotorPeriod(ePeriod_t number ,uint16_t motorPeriod)
+void DFRobot_UnihikerExpansion::setMotorPeriod(ePeriod_t number ,uint16_t motorPeriod)
 {
   uint8_t reg = 0;
   uint8_t result = 0;
@@ -42,7 +42,7 @@ void DFRobot_K10_Expansion::setMotorPeriod(ePeriod_t number ,uint16_t motorPerio
   return;
 }
 
-void DFRobot_K10_Expansion::setMotorDuty(eMotorNumber_t number, uint16_t duty)
+void DFRobot_UnihikerExpansion::setMotorDuty(eMotorNumber_t number, uint16_t duty)
 {
   uint8_t reg = 0;
   uint8_t result = 0;
@@ -63,7 +63,7 @@ void DFRobot_K10_Expansion::setMotorDuty(eMotorNumber_t number, uint16_t duty)
 }
 
 
-void DFRobot_K10_Expansion::setServoAngle(eServoNumber_t number, uint16_t angle)
+void DFRobot_UnihikerExpansion::setServoAngle(eServoNumber_t number, uint8_t angle)
 {
   uint8_t reg = 0;
   uint16_t period = 0;
@@ -76,7 +76,6 @@ void DFRobot_K10_Expansion::setServoAngle(eServoNumber_t number, uint16_t angle)
   reg = number*2+I2C_SERVO0_DUTY_H;
   _tempData[0] = (period >> 8)& 0xFF;
   _tempData[1] = (period >> 0)& 0xFF;
-  
   for(uint8_t i = 0; i < RETRY_COUNT; i++){
     result = writeReg(reg, _tempData, 2);
     if(result == 0){
@@ -89,7 +88,7 @@ void DFRobot_K10_Expansion::setServoAngle(eServoNumber_t number, uint16_t angle)
   return;
 }
 
-uint8_t DFRobot_K10_Expansion::getBattery(void)
+uint8_t DFRobot_UnihikerExpansion::getBattery(void)
 {
   uint8_t result = 0;
   uint8_t _tempData[TEMP_LEN] = {0};
@@ -105,7 +104,7 @@ uint8_t DFRobot_K10_Expansion::getBattery(void)
   return 0xFF;
 }
 
-uint32_t DFRobot_K10_Expansion::getIRData(void)
+uint32_t DFRobot_UnihikerExpansion::getIRData(void)
 {
   uint8_t result = 0;
   uint8_t _tempData[TEMP_LEN] = {0};
@@ -125,7 +124,7 @@ uint32_t DFRobot_K10_Expansion::getIRData(void)
   return 0xFFFFFFFF;
 }
 
-uint8_t DFRobot_K10_Expansion::sendIR(uint32_t data)
+uint8_t DFRobot_UnihikerExpansion::sendIR(uint32_t data)
 {
   uint8_t result = 0;
   uint8_t _tempData[TEMP_LEN] = {0};
@@ -147,7 +146,7 @@ uint8_t DFRobot_K10_Expansion::sendIR(uint32_t data)
   return 0xff;
 }
 
-uint8_t DFRobot_K10_Expansion::setWS2812(uint32_t *data, uint8_t bright)
+uint8_t DFRobot_UnihikerExpansion::setWS2812(uint32_t *data, uint8_t bright)
 {
   uint8_t result = 0;
   uint8_t _tempData[TEMP_LEN] = {0};
@@ -159,9 +158,8 @@ uint8_t DFRobot_K10_Expansion::setWS2812(uint32_t *data, uint8_t bright)
   _tempData[5] = (data[1] >> 16) & 0xFF;
   _tempData[6] = (data[1] >> 8)  & 0xFF;
   _tempData[7] = (data[1] >> 0)  & 0xFF;
-  
   for(uint8_t i = 0; i < RETRY_COUNT; i++){
-    uint8_t result = writeReg(I2C_WS2812_STATE, _tempData, 8);
+    result = writeReg(I2C_WS2812_STATE, _tempData, 8);
     if(result == 0){
       return 0;
     }else{
@@ -173,15 +171,14 @@ uint8_t DFRobot_K10_Expansion::setWS2812(uint32_t *data, uint8_t bright)
 }
 
 
-uint8_t DFRobot_K10_Expansion::setMode(eNumber_t number, eMode_t mode)
+uint8_t DFRobot_UnihikerExpansion::setMode(eIONumber_t number, eIOType_t mode)
 {
   uint8_t result = 0;
   uint8_t reg = I2C_IO_MODE_C0+number;
   uint8_t _tempData[TEMP_LEN] = {0};
   _tempData[0] = mode;
-
   for(uint8_t i = 0; i < RETRY_COUNT; i++){
-    uint8_t result = writeReg(reg, _tempData, 1);
+    result = writeReg(reg, _tempData, 1);
     if(result == 0){
       return 0;
     }else{
@@ -192,7 +189,7 @@ uint8_t DFRobot_K10_Expansion::setMode(eNumber_t number, eMode_t mode)
   return 0xff;
 }
 
-uint8_t DFRobot_K10_Expansion::setGpioState(eNumber_t number, eIOState_t state)
+uint8_t DFRobot_UnihikerExpansion::setGpioState(eIONumber_t number, eGpioState_t state)
 {
   uint8_t result = 0;
   uint8_t _tempData[TEMP_LEN] = {0};
@@ -210,7 +207,7 @@ uint8_t DFRobot_K10_Expansion::setGpioState(eNumber_t number, eIOState_t state)
   return 0xff;
 }
 
-uint8_t DFRobot_K10_Expansion::getGpioState(eNumber_t number)
+uint8_t DFRobot_UnihikerExpansion::getGpioState(eIONumber_t number)
 {
   uint8_t result = 0;
   uint8_t _tempData[TEMP_LEN] = {0};
@@ -227,7 +224,7 @@ uint8_t DFRobot_K10_Expansion::getGpioState(eNumber_t number)
   return 0xFF;
 }
 
-uint16_t DFRobot_K10_Expansion::getADCValue(eNumber_t number)
+uint16_t DFRobot_UnihikerExpansion::getADCValue(eIONumber_t number)
 {
   uint8_t result = 0;
   uint8_t _tempData[TEMP_LEN] = {0};
@@ -251,7 +248,7 @@ uint16_t DFRobot_K10_Expansion::getADCValue(eNumber_t number)
   return 0xFFFF;
 }
 
-sDhtData_t DFRobot_K10_Expansion::getDHTValue(eNumber_t number)
+sDhtData_t DFRobot_UnihikerExpansion::getDHTValue(eIONumber_t number)
 {
   uint8_t result = 0;
   uint8_t _tempData[TEMP_LEN] = {0};
@@ -263,7 +260,7 @@ sDhtData_t DFRobot_K10_Expansion::getDHTValue(eNumber_t number)
 
   _tempData[0] = DATA_ENABLE;
   for(uint8_t i = 0; i < RETRY_COUNT; i++){
-    uint8_t result = writeReg(reg, _tempData, 1);
+    result = writeReg(reg, _tempData, 1);
     if(result == 0){
       break;
     }else{
@@ -298,7 +295,7 @@ sDhtData_t DFRobot_K10_Expansion::getDHTValue(eNumber_t number)
   return dhtData;
 }
 
-float DFRobot_K10_Expansion::get18b20Value(eNumber_t number)
+float DFRobot_UnihikerExpansion::get18b20Value(eIONumber_t number)
 {
   uint8_t result = 0;
   uint8_t _tempData[TEMP_LEN] = {0};
@@ -308,7 +305,7 @@ float DFRobot_K10_Expansion::get18b20Value(eNumber_t number)
   float sign = 1.0;
   _tempData[0] = DATA_ENABLE;
   for(uint8_t i = 0; i < RETRY_COUNT; i++){
-    uint8_t result = writeReg(reg, _tempData, 1);
+    result = writeReg(reg, _tempData, 1);
     if(result == 0){
       break;
     }else{
@@ -331,6 +328,7 @@ float DFRobot_K10_Expansion::get18b20Value(eNumber_t number)
           sign = 1.0;
         }
         temperature = ((uint16_t)_tempData[1]*256 + (uint16_t)_tempData[2]) / 16.0;
+        temperature *= sign;
         return temperature;
       }else if(_tempData[0] == MODE_ERROR){
         DBG("gpio mode error!")
@@ -342,15 +340,15 @@ float DFRobot_K10_Expansion::get18b20Value(eNumber_t number)
     }
     delay(30);
   }
-  return 0.0;  // 或者其他你定义的错误码
+  return 0.0;
 }
 
-int  DFRobot_K10_Expansion::getSr04Distance(void)
+int16_t  DFRobot_UnihikerExpansion::getSr04Distance(void)
 {
   uint8_t result = 0;
   uint8_t _tempData[TEMP_LEN] = {0};
   uint8_t reg = 0;
-  int distance = 0.0;
+  int16_t distance = 0.0;
   reg = I2C_SR04_STATE;
   _tempData[0] = SR04_COLLECT;
   for(uint8_t i = 0; i < RETRY_COUNT; i++){
@@ -367,7 +365,7 @@ int  DFRobot_K10_Expansion::getSr04Distance(void)
     result = readReg(reg, _tempData, 3);
     if (result == 0) {
       if(_tempData[0] == SR04_COMPLETE){
-        distance = int(((uint16_t)_tempData[1])<<8 | _tempData[2]);
+        distance = (int16_t)(((uint16_t)_tempData[1])<<8 | _tempData[2]);
         return distance;
       }else{
         DBG("data readly! please wait !");
@@ -381,25 +379,47 @@ int  DFRobot_K10_Expansion::getSr04Distance(void)
 }
 
 
-DFRobot_K10_Expansion_I2C::DFRobot_K10_Expansion_I2C(TwoWire *pWire, uint8_t addr)
+DFRobot_UnihikerExpansion_I2C::DFRobot_UnihikerExpansion_I2C(TwoWire *pWire, uint8_t addr)
 {
   __pWire = pWire;
   this->__I2C_addr = addr;
 }
 
-bool DFRobot_K10_Expansion_I2C::begin()
+bool DFRobot_UnihikerExpansion_I2C::begin()
 {
+  bool result = false;
+  uint8_t retry = 0;
+  uint8_t _tempData[TEMP_LEN] = {0};
   __pWire->begin();
-  //__pWire->setClock(100000);
+  __pWire->setClock(400000);
   __pWire->beginTransmission(__I2C_addr);
   if(__pWire->endTransmission() == 0){
-    return true;
+    result = true;
   }else{
-    return false;
+    result = false;
   }
+  if(result){
+    _tempData[0] = DATA_ENABLE;
+    writeReg(I2C_RESET_SENSOR, _tempData, 1);
+    delay(20);
+    while(1){
+      __pWire->begin();
+      __pWire->beginTransmission(__I2C_addr);
+      if(__pWire->endTransmission() == 0){
+        result = true;
+        break;
+      }
+      if((++retry) > 100){
+        result = false;
+        break;
+      }
+      delay(10);
+    }
+  }
+  return result;
 }
 
-uint8_t DFRobot_K10_Expansion_I2C::writeReg(uint8_t reg, uint8_t *data, uint8_t len)
+uint8_t DFRobot_UnihikerExpansion_I2C::writeReg(uint8_t reg, uint8_t *data, uint8_t len)
 {
   uint8_t result = 0;
   __pWire->beginTransmission(this->__I2C_addr);
@@ -411,7 +431,7 @@ uint8_t DFRobot_K10_Expansion_I2C::writeReg(uint8_t reg, uint8_t *data, uint8_t 
   return result;
 }
 
-int16_t DFRobot_K10_Expansion_I2C::readReg(uint8_t reg, uint8_t *data, uint8_t len)
+int16_t DFRobot_UnihikerExpansion_I2C::readReg(uint8_t reg, uint8_t *data, uint8_t len)
 {
   uint8_t result = 0;
   uint8_t i = 0;
@@ -429,6 +449,4 @@ int16_t DFRobot_K10_Expansion_I2C::readReg(uint8_t reg, uint8_t *data, uint8_t l
     DBG("read error");
     return -1;
   }
-
 }
-
