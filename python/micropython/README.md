@@ -30,118 +30,118 @@ Before using this library, first download the library file, paste it into the fi
 ```python
 def set_motor_period(self, period_type, motor_period):
     '''!
-        @brief 设置电机组的PWM周期
-        @param period_type 电机组选择（MOTOR1_2/MOTOR3_4）
-        @param motor_period PWM周期值（0-0xFFFF）
-        @throws ValueError 若period_type无效或周期超出范围
+        @brief Set PWM period for motor groups
+        @param period_type Motor group selection (MOTOR1_2/MOTOR3_4)
+        @param motor_period PWM period value (0-0xFFFF)
+        @throws ValueError If invalid period_type or out-of-range period
     '''
 
 def set_motor_duty(self, motor, duty):
     '''!
-        @brief 设置指定电机通道的占空比
-        @param motor 电机通道选择（MOTOR1_A至MOTOR4_B）
-        @param duty 占空比值（0-0xFFFF）
-        @throws ValueError 若电机通道无效或占空比超出范围
+        @brief Set duty cycle for specific motor channel
+        @param motor Motor channel selection (MOTOR1_A to MOTOR4_B)
+        @param duty Duty cycle value (0-0xFFFF)
+        @throws ValueError If invalid motor or out-of-range duty
     '''
 
 def set_servo_angle(self, servo, angle):
     '''!
-        @brief 设置舵机旋转角度
-        @param servo 舵机通道选择（SERVO0-SERVO5）
-        @param angle 目标角度（0-180度）
-        @throws ValueError 若舵机通道无效
+        @brief Set servo motor rotation angle
+        @param servo Servo channel selection (SERVO0-SERVO5)
+        @param angle Target angle (0-180 degrees)
+        @throws ValueError If invalid servo channel
     '''
 
 def get_battery(self):
     '''!
-        @brief 读取电池电压电量
-        @return 电池电量（0-100）%
+        @brief Read battery voltage level
+        @return Battery level (0-255 scale)
     '''
 
 def get_dht_value(self, pin):
     '''!
-        @brief 读取DHT温湿度传感器数据
-        @param pin 连接的引脚（C0-C5）
-        @return 包含测量值的DHTData对象
-        @throws ValueError 若引脚无效
+        @brief Read DHT temperature/humidity sensor data
+        @param pin Connected pin (C0-C5)
+        @return DHTData object containing measurements
+        @throws ValueError If invalid pin
     '''
 
 def get_18b20_value(self, pin):
     '''!
-        @brief 读取DS18B20温度传感器
-        @param pin 连接的引脚（C0-C5）
-        @return 摄氏温度值
-        @throws ValueError 若引脚无效
+        @brief Read DS18B20 temperature sensor
+        @param pin Connected pin (C0-C5)
+        @return Temperature in Celsius
+        @throws ValueError If invalid pin
     '''
 
 def get_sr04_distance(self):
     '''!
-        @brief 用超声波传感器测量距离
-        @return 距离（厘米，错误返回-1）
+        @brief Measure distance with ultrasonic sensor
+        @return Distance in cm (-1 if error)
     '''
 
 def set_mode(self, pin, mode):
     '''!
-        @brief 设置IO引脚工作模式
-        @param pin 目标引脚（C0-C5）
-        @param mode 操作模式（ADC/DHT11/DHT22/DS18B20/GPIO_OUT/GPIO_IN）
-        @throws ValueError 若参数无效
+        @brief Set IO pin working mode
+        @param pin Target pin (C0-C5)
+        @param mode Operation mode (ADC/DHT11/DHT22/DS18B20/GPIO_OUT/GPIO_IN)
+        @throws ValueError If invalid parameters
     '''
 
 def set_gpio_state(self, pin, state):
     '''!
-        @brief 设置GPIO输出状态
-        @param pin 目标引脚（C0-C5）
-        @param state 输出状态（HIGH/LOW）
-        @throws ValueError 若参数无效
+        @brief Set GPIO output state
+        @param pin Target pin (C0-C5)
+        @param state Output state (HIGH/LOW)
+        @throws ValueError If invalid parameters
     '''
 
 def get_gpio_state(self, pin):
     '''!
-        @brief 读取GPIO输入状态
-        @param pin 目标引脚（C0-C5）
-        @return 当前引脚状态（0/1）
-        @throws ValueError 若引脚无效
+        @brief Read GPIO input state
+        @param pin Target pin (C0-C5)
+        @return Current pin state (0/1)
+        @throws ValueError If invalid pin
     '''
 
 def get_adc_value(self, pin):
     '''!
-        @brief 读取模拟输入值
-        @param pin 目标引脚（C0-C5）
-        @return ADC值（0-4095）
-        @throws ValueError 若引脚无效
+        @brief Read analog input value
+        @param pin Target pin (C0-C5)
+        @return ADC value (0-4095)
+        @throws ValueError If invalid pin
     '''
 
 def send_ir(self, data):
     '''!
-        @brief 发送红外信号
-        @param data 32位IR命令数据
+        @brief Send infrared signal
+        @param data 32-bit IR command data
     '''
 
 def get_ir_data(self):
     '''!
-        @brief 接收红外信号
-        @return 接收的32位IR数据（无数据返回0）
+        @brief Receive infrared signal
+        @return 32-bit received IR data (0 if no data)
     '''
 
 def get_bright(self):
     '''!
-        @brief 获取WS2812 LED当前亮度
-        @return 亮度值（0-255）
+        @brief Get current WS2812 LED brightness
+        @return Brightness value (0-255)
     '''
 
 def set_bright(self, brightness):
     '''!
-        @brief 设置WS2812 LED亮度
-        @param brightness 目标亮度（0-255）
+        @brief Set WS2812 LED brightness
+        @param brightness Target brightness (0-255)
     '''
 
 def set_ws2812(self, num, color):
     '''!
-        @brief 设置WS2812 LED颜色
-        @param num LED索引（RGB0/RGB1）
-        @param color 24位RGB颜色（0xRRGGBB）
-        @throws ValueError 若LED索引无效
+        @brief Set WS2812 LED color
+        @param num LED index (RGB0/RGB1)
+        @param color 24-bit RGB color (0xRRGGBB)
+        @throws ValueError If invalid LED index
     '''
 ```
 
