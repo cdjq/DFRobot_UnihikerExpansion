@@ -24,6 +24,7 @@ get18b20Value	KEYWORD2
 setMotorPeriod	KEYWORD2
 setMotorDuty	KEYWORD2
 setServoAngle	KEYWORD2
+setServo360	KEYWORD2
 getSr04Distance	KEYWORD2
 ePeriod_t	KEYWORD2
 eServoNumber_t	KEYWORD2
@@ -33,7 +34,7 @@ eIONumber_t	KEYWORD2
 eDhtType_t	KEYWORD2
 eGpioState_t	KEYWORD2
 sDhtData_t	KEYWORD2
-
+eServo360Direction_t	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

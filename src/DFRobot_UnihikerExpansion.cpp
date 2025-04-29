@@ -63,6 +63,42 @@ void DFRobot_UnihikerExpansion::setMotorDuty(eMotorNumber_t number, uint16_t dut
 }
 
 
+void DFRobot_UnihikerExpansion::setServo360(eServoNumber_t number, eServo360Direction_t direction, uint8_t speed)
+{
+  uint8_t reg = 0;
+  uint16_t period = 0;
+  uint8_t result = 0;
+  uint8_t _tempData[TEMP_LEN] = {0};
+  if (speed > 100) {
+    speed = 100;
+  }
+  
+  if (direction == eBackward) {
+    period = 1550 + (speed * 4.5); // 1550 ~ 2000
+  } else if (direction == eForward) {
+    period = 1450 - (speed * 4.5); // 1500 ~ 1000
+  } else if (direction == eStop) {
+    period = 1500;
+  } else {
+    return;
+  }
+  if(speed == 0){
+    period = 1500;
+  }
+  reg = number*2+I2C_SERVO0_DUTY_H;
+  _tempData[0] = (period >> 8)& 0xFF;
+  _tempData[1] = (period >> 0)& 0xFF;
+  for(uint8_t i = 0; i < RETRY_COUNT; i++){
+    result = writeReg(reg, _tempData, 2);
+    if(result == 0){
+      return;
+    }else{
+      DBG("i2c write error ");
+    }
+    delay(20);
+  }
+}
+
 void DFRobot_UnihikerExpansion::setServoAngle(eServoNumber_t number, uint8_t angle)
 {
   uint8_t reg = 0;
@@ -180,6 +216,7 @@ uint8_t DFRobot_UnihikerExpansion::setMode(eIONumber_t number, eIOType_t mode)
   for(uint8_t i = 0; i < RETRY_COUNT; i++){
     result = writeReg(reg, _tempData, 1);
     if(result == 0){
+      delay(10);
       return 0;
     }else{
       DBG("i2c write error ");
@@ -198,6 +235,7 @@ uint8_t DFRobot_UnihikerExpansion::setGpioState(eIONumber_t number, eGpioState_t
   for(uint8_t i = 0; i < RETRY_COUNT; i++){
     result = writeReg(reg, _tempData, 1);
     if(result == 0){
+      delay(10);
       return 0;
     }else{
       DBG("i2c write error ");

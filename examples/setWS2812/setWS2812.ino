@@ -29,4 +29,10 @@ void loop()
     Serial.println("set WS2812 success");
   }
   delay(1000);
+  uint32_t led1[2] = {0xffff00, 0xff00ff};
+  result  = eunihiker.setWS2812((uint32_t*)led1, 100);
+  if(result == 0){
+    Serial.println("set WS2812 success");
+  }
+  delay(1000);  
 }

@@ -3,7 +3,7 @@ import time
 from pinpong.board import Board
 from pinpong.libs.dfrobot_unihiker_expansion import UnihikerExpansion, ServoNum
 
-Board("").begin()  #初始化，选择板型，不输入板型则进行自动识别
+Board("").begin()
 
 eunihiker = UnihikerExpansion() 
 

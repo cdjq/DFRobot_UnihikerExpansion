@@ -155,7 +155,6 @@ class UnihikerExpansion:
     def get_battery(self):
         data = self._read_regs(self.I2C_BATTERY, 1)
         return data[0]
-
         
     def get_dht_value(self, pin: IONum) -> DHTData:
         reg = self.I2C_DHT_C0_S + pin.value * 5
@@ -199,8 +198,6 @@ class UnihikerExpansion:
     def get_mode(self, pin: IONum):
         reg = self.I2C_IO_MODE_C0 + pin.value
         data = self._read_regs(reg, 1)
-        print(data)
-        
 
     def set_mode(self, pin: IONum, mode: IOType):
         reg = self.I2C_IO_MODE_C0 + pin.value

@@ -17,23 +17,28 @@ void setup()
     Serial.println("NO Deivces !");
     delay(1000);
   } Serial.println("Device connected !");
-  eunihiker.setMotorPeriod(eMotor1_2, 60000);
-  eunihiker.setMotorPeriod(eMotor3_4, 20000);
+  eunihiker.setMotorPeriod(eMotor1_2, 255);
+  eunihiker.setMotorPeriod(eMotor3_4, 255);
 }
 
 void loop()
 {
-  eunihiker.setMotorDuty(eMotor1_A, 60000);
+  eunihiker.setMotorDuty(eMotor1_A, 255);
   eunihiker.setMotorDuty(eMotor1_B, 0);
-
   eunihiker.setMotorDuty(eMotor2_A, 0);
-  eunihiker.setMotorDuty(eMotor2_B, 3000);
-
-
-  eunihiker.setMotorDuty(eMotor3_A, 20000);
+  eunihiker.setMotorDuty(eMotor2_B, 255);
+  eunihiker.setMotorDuty(eMotor3_A, 50);
   eunihiker.setMotorDuty(eMotor3_B, 0);
-  
   eunihiker.setMotorDuty(eMotor4_A, 0);
-  eunihiker.setMotorDuty(eMotor4_B, 10);
+  eunihiker.setMotorDuty(eMotor4_B, 50);
+  delay(1000);
+  eunihiker.setMotorDuty(eMotor1_A, 0);
+  eunihiker.setMotorDuty(eMotor1_B, 255);
+  eunihiker.setMotorDuty(eMotor2_A, 255);
+  eunihiker.setMotorDuty(eMotor2_B, 0);
+  eunihiker.setMotorDuty(eMotor3_A, 0);
+  eunihiker.setMotorDuty(eMotor3_B, 50);
+  eunihiker.setMotorDuty(eMotor4_A, 50);
+  eunihiker.setMotorDuty(eMotor4_B, 0);
   delay(1000);
 }

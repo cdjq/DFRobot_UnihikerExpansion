@@ -76,7 +76,6 @@ There are two methods for using this library:<br>
    */
   uint8_t setMode(eIONumber_t number, eIOType_t mode);
 
-
   /**
    * @fn: setGpioState
    * @brief: Set the GPIO state
@@ -148,6 +147,16 @@ There are two methods for using this library:<br>
    * @return: NULL
    */
   void setServoAngle(eServoNumber_t number, uint8_t angle);
+
+  /**
+   * @fn: setServo360
+   * @brief Set the Servo360
+   * @param number: servo number
+   * @param direction 
+   * @param speed (0-100)
+   * @return: NULL
+   */
+  void setServo360(eServoNumber_t number, eServo360Direction_t direction, uint8_t speed);
 
   /**
    * @fn: getSr04Distance

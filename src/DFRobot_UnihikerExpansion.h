@@ -66,6 +66,12 @@ typedef enum {
 }eIONumber_t;
 
 typedef enum {
+  eForward,
+  eBackward,
+  eStop,
+}eServo360Direction_t;
+
+typedef enum {
   eLOW,
   eHIGH,
 }eGpioState_t;
@@ -239,6 +245,17 @@ public:
    * @return: NULL
    */
   void setServoAngle(eServoNumber_t number, uint8_t angle);
+
+  /**
+   * @fn: setServo360
+   * @brief Set the Servo360
+   * @param number: servo number
+   * @param direction 
+   * @param speed (0-100)
+   * @return: NULL
+   */
+  void setServo360(eServoNumber_t number, eServo360Direction_t direction, uint8_t speed);
+  
 
   /**
    * @fn: getSr04Distance
