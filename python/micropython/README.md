@@ -44,6 +44,15 @@ def set_motor_duty(self, motor, duty):
         @throws ValueError If invalid motor or out-of-range duty
     '''
 
+def set_servo360(self, servo, direction, speed):
+    '''!
+        @brief Set servo motor360
+        @param servo Servo channel selection (SERVO0-SERVO5)
+        @param direction "FORWARD"/"BACKWARD"/"STOP"
+        @Param speed (0-100)
+        @throws ValueError If invalid servo channel
+    '''
+
 def set_servo_angle(self, servo, angle):
     '''!
         @brief Set servo motor rotation angle

@@ -44,6 +44,15 @@ def set_motor_duty(self, motor, duty):
         @throws ValueError 若电机通道无效或占空比超出范围
     '''
 
+def set_servo360(self, servo, direction, speed):
+    '''!
+        @brief 设置360°舵机
+        @param servo 舵机通道选择（SERVO0-SERVO5）
+        @param direction "FORWARD"/"BACKWARD"/"STOP" 正转/反转/停止
+        @Param speed (0-100)
+        @throws ValueError 若舵机通道无效或者方向无效
+    '''
+
 def set_servo_angle(self, servo, angle):
     '''!
         @brief 设置舵机旋转角度

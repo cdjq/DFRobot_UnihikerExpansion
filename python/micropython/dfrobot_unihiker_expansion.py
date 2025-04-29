@@ -17,6 +17,7 @@ from micropython import const
 MPeriod = {"MOTOR1_2": 0, "MOTOR3_4": 1}
 RgbNum = {"RGB0": 0, "RGB1": 1}
 ServoNum = {f"SERVO{i}": i for i in range(6)}
+Servo360Direction = {"FORWARD", "BACKWARD", "STOP"}
 MotorNum = {
   "MOTOR1_A": 0, "MOTOR1_B": 1, "MOTOR2_A": 2, "MOTOR2_B": 3,
   "MOTOR3_A": 4, "MOTOR3_B": 5, "MOTOR4_A": 6, "MOTOR4_B": 7
@@ -155,6 +156,34 @@ class UnihikerExpansion:
         self._write_regs(reg, data)
         time.sleep(0.02)
 
+
+    def set_servo360(self, servo, direction, speed):
+        '''!
+            @brief Set servo motor360
+            @param servo Servo channel selection (SERVO0-SERVO5)
+            @param direction "FORWARD"/"BACKWARD"/"STOP"
+            @Param speed (0-100)
+            @throws ValueError If invalid servo channel
+        '''
+        if servo not in ServoNum:
+            raise ValueError("Invalid servo")
+        if direction not in Servo360Direction:
+            raise ValueError("Invalid direction")
+        if speed > 100:
+            speed = 100
+        if direction == "FORWARD":
+            period = int(1550 + speed * 4.5)  # 1550 ~ 2000
+        elif direction == "BACKWARD":
+            period = int(1450 - speed * 4.5)  # 1450 ~ 1000
+        elif direction == "STOP":
+            period = 1500
+        if speed == 0:
+            period = 1500
+        reg = self.I2C_SERVO0_DUTY_H + ServoNum[servo] * 2
+        data = [(period >> 8) & 0xFF, period & 0xFF]
+        self._write_regs(reg, data)
+        time.sleep(0.02)
+        
     def set_servo_angle(self, servo, angle):
         '''!
             @brief Set servo motor rotation angle

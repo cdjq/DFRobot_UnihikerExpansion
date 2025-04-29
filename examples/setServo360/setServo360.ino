@@ -30,7 +30,7 @@
     eunihiker.setServo360(eServo5, eForward, 100);
     delay(2000);
     eunihiker.setServo360(eServo0, eBackward, 10);
-    eunihiker.setServo360(eServo1, eForward, 0);
+    eunihiker.setServo360(eServo1, eForward, 50);
     eunihiker.setServo360(eServo2, eBackward, 100);
     eunihiker.setServo360(eServo3, eBackward, 0);
     eunihiker.setServo360(eServo4, eStop, 0);

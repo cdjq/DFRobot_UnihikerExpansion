@@ -32,6 +32,11 @@ class MotorNum(Enum):
     MOTOR4_A = 6
     MOTOR4_B = 7
 
+class Servo360Direction(Enum):
+    FORWARD = 0
+    BACKWARD = 1
+    STOP = 2
+
 class IOType(Enum):
     ADC = 0
     DHT11 = 1
@@ -111,7 +116,6 @@ class UnihikerExpansion:
                 if self._connect >= self.ERROR_COUNT:
                     raise RuntimeError("Device communication failure") from e
                 time.sleep(0.1)
-                
 
     def _write_regs(self, reg_addr, data):
         self._connect = 0
@@ -147,6 +151,26 @@ class UnihikerExpansion:
         if angle > 180:
             angle = 180
         period = 500 + angle * 11
+        reg = self.I2C_SERVO0_DUTY_H + servo.value * 2
+        data = [(period >> 8) & 0xFF, period & 0xFF]
+        self._write_regs(reg, data)
+        time.sleep(0.02)
+
+
+    def set_servo360(self, servo: ServoNum, direction: Servo360Direction, speed: int):
+        if speed > 100:
+            speed = 100
+        if direction == Servo360Direction.BACKWARD:
+            period = int(1550 + speed * 4.5)  # 1550 ~ 2000
+        elif direction == Servo360Direction.FORWARD:
+            period = int(1450 - speed * 4.5)  # 1450 ~ 1000
+        elif direction == Servo360Direction.STOP:
+            period = 1500
+        else:
+            return
+        if speed == 0:
+            period = 1500
+
         reg = self.I2C_SERVO0_DUTY_H + servo.value * 2
         data = [(period >> 8) & 0xFF, period & 0xFF]
         self._write_regs(reg, data)
